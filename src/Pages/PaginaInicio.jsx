@@ -1,8 +1,11 @@
 import React from 'react'
+import CategoriaLista from '../Components/CategoriaLista'
 
 const PaginaInicio = () => {
   return (
-    <div>PaginaInicio</div>
+    <div className='container'>
+      <CategoriaLista />
+    </div>
   )
 }
 
