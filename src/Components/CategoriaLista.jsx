@@ -1,15 +1,81 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { imgs, categories } from '../Data';
+import CategoriaCard from './CategoriaCard';
+
+const [ 
+  imgCiencia,
+  imgDeportes,
+  imgFilosofia,
+  imgGeografia,
+  imgHistoria,
+  imgLiteratura,
+  imgTecnologia,
+] = imgs;
 
 const CategoriaLista = () => {
   return (
     <div className='flex flex-row flex-wrap justify-center gap-4 mt-10'>
-        <Link to={`/categoria/${id}`} className='flex flex-col justify-between basis-1/4 bg-slate-500 rounded-2xl overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 transition-all hover:scale-105'>
-            <div className='p-5 flex justify-center items-center'>
-                <img src={algo} alt={`categoria`} className='w-36' />
-            </div>
-            <h1 className='text-2x1 font-semibold text-stone-100 bg-stone-800 bg-opacity-60 p-3 px-5'>{algo}</h1>
-        </Link>
+
+      {/* categoria ciencia */}
+        <CategoriaCard
+         category={categories.ciencia}
+          src={imgCiencia}
+          alt={`categoria ${categories.ciencia}`}
+          gradientColor="from-purple-500 to-pink-500"
+          />
+
+         {/* categoria deportes*/}
+        <CategoriaCard
+        category={categories.deportes}
+        src={imgDeportes}
+        alt={`categoria ${categories.deportes}`}
+        gradientColor="from-lime-400 to-teal-700"
+        />
+
+            {/* categoria filosofia*/}
+        <CategoriaCard
+        category={categories.filosofia}
+        src={imgFilosofia}
+        alt={`categoria ${categories.filosofia}`}
+        gradientColor=" from-red-400 to-zinc-400"
+        />
+
+          {/* categoria geografia*/}
+        <CategoriaCard
+        category={categories.geografia}
+        src={imgGeografia}
+        alt={`categoria ${categories.geografia}`}
+        gradientColor="from-cyan-600 to-lime-200"
+        />
+         
+
+          {/* categoria historia*/}
+          <CategoriaCard
+        category={categories.historia}
+        src={imgHistoria}
+        alt={`categoria ${categories.historia}`}
+        gradientColor="from-sky-300 to-indigo-900"
+        />
+
+          {/* categoria literatura*/}
+          <CategoriaCard
+        category={categories.literatura}
+        src={imgLiteratura}
+        alt={`categoria ${categories.literatura}`}
+        gradientColor="from-amber-400 to-emerald-600"
+        />
+         
+
+         {/* categoria tecnologia*/}
+         <CategoriaCard
+        category={categories.tecnologia}
+        src={imgTecnologia}
+        alt={`categoria ${categories.tecnologia}`}
+        gradientColor=" from-violet-900 to-rose-500"
+        />
+         
+    
     </div>
   )
 }
