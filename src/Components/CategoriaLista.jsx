@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom'
 import { imgs, categories } from '../Data';
 import CategoriaCard from './CategoriaCard';
 
-const [ 
+
+const CategoriaLista = () => {
+
+  const [ 
   imgCiencia,
   imgDeportes,
   imgFilosofia,
@@ -13,7 +16,7 @@ const [
   imgTecnologia,
 ] = imgs;
 
-const CategoriaLista = () => {
+
   return (
     <div className='flex flex-row flex-wrap justify-center gap-4 mt-10'>
 

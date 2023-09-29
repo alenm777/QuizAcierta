@@ -10,7 +10,7 @@ const AppRouter = () => {
 
     <Routes>
         <Route path='/' element={<PaginaInicio />} />
-        <Route path='/categoria/:categoria' element={< Categorias/>} />
+        <Route path='/categoria/:category' element={< Categorias/>} />
     </Routes>
 
   </>
