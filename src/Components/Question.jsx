@@ -5,6 +5,8 @@ filteredQuestion,
 questionsFiltered,
 indexQuestion,
 setIndexQuestion,
+setActiveQuiz,
+
 }) => {
 
     const onNextQuestion = () => {
@@ -30,7 +32,10 @@ Dificultad: </span>
 </span>
 </div>
 </div>
-<button className='border px-5 py-2 rounded-lg font-bold transition-all hover:bg-yellow-500 hover:text-gray-900'>
+<button
+ className='border px-5 py-2 rounded-lg font-bold transition-all hover:bg-yellow-500 hover:text-gray-900'
+ onClick={() => setActiveQuiz(false)}
+>
 Reiniciar
 </button>
 <div>
@@ -49,8 +54,10 @@ Alguna Respueta
 </button>
 </div>
 {/* boton de siguiente pregunta o finalizar*/}
-<button className='border-2 border-yellow-600 text-yellow-600 rounded-md px-5 py-2
-hover:bg-yellow-600 hover:text-black font-medium'>
+<button 
+className='border-2 border-yellow-600 text-yellow-600 rounded-md px-5 py-2
+hover:bg-yellow-600 hover:text-black font-medium'
+ onClick={onNextQuestion} >
 Finalizar o siguiente pregunta
 </button>
     </div>
