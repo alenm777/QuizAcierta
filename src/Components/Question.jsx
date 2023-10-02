@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Question = ({
 filteredQuestion,
@@ -6,8 +6,14 @@ questionsFiltered,
 indexQuestion,
 setIndexQuestion,
 setActiveQuiz,
-
 }) => {
+
+    const [answerRandom, setAnswerRandom] = useState([]);
+
+
+    useEffect(() => {
+const answer = []
+    }, [filteredQuestion])
 
     const onNextQuestion = () => {
         setIndexQuestion(indexQuestion + 1 )
@@ -47,7 +53,7 @@ Reiniciar
 {/* Respuestas */}
 <div className='grid grid-cols-2 gap-5'>
  { /*  Respuestas correctas e incorrectas */}
-<button className='border-p-5 rounded-lg flex justify-center items-center hover: scale-105'>
+<button className='border -p-5 rounded-lg flex justify-center items-center hover: scale-105'>
 <p className='font-medium text-center text-sm'> 
 Alguna Respueta 
 </p>

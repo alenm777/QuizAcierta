@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { questions } from '../Data'
+import { questions, imgs } from '../Data'
 import Question from '../Components/Question';
 
 const shuffleArray = (array) => {
@@ -9,15 +9,19 @@ const shuffleArray = (array) => {
 };
 
 const Categorias = () => {
-  const { category } = useParams()
-    console.log(category)
+  const { category } = useParams();
+
+    
+  const [imgCategory] = imgs.filter(
+    img => img === `/src/assets/${category}.png`
+  )
 
     const [questionsFiltered, setQuestionsFiltered] = useState(
       questions.filter(question => question.category === category)
       );
 
       const [indexQuestion, setIndexQuestion] = useState(0);
-      const [activeQuiz, setActiveQuiz] = useState(second)
+      const [activeQuiz, setActiveQuiz] = useState()
       
 
       useEffect(() => {
@@ -44,7 +48,11 @@ setQuestionsFiltered(newQuestions);
 </h1>
 
 <div className='flex justify-center items-center'>
-<img src={algo} alt={category} className='w-72' />
+<img
+ src={imgCategory}
+ alt={category}
+  className='w-72'
+   />
 </div>
      </div>
 
