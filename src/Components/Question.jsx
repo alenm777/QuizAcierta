@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Resultados from './Resultados';
 //import { Resultados } from './Resultados';
 
  const Question = ({
@@ -46,19 +47,11 @@ import React, { useEffect, useState } from 'react';
 	return (
 		<>
 			{activeResults ? (
-			<div className='flex flex-col justify-evenly items-center shadow-xl rounded-lg w-[600px] h-[600px] gap-5'>
-<h1 className='text-4x1 font-bold'>
-    Resultados
-</h1>
-<div className='flex flex-col gap-5 text-center text-lg font-bold'>
-    <span>Puntuación</span>
-    <span className='font-black bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text
-     text-transparent text-6xl animate-pulse'>
-        {((score / questionsFiltered.length) * 100).toFixed(0)}%
-    </span>
-    total de preguntas acertadas ({score} de {questionsFiltered.length})
-</div>
-            </div>
+            <Resultados 
+            questionsFiltered={questionsFiltered}
+             score={score}
+             onReset={onReset}
+             />
 			) : (
 				<div className='flex flex-col justify-between shadow-md  shadow-slate-300 w-[600px] h-[600px] p-10 rounded-lg'>
 					<div className='flex justify-between'>
