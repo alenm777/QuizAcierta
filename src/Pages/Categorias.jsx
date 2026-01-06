@@ -1,70 +1,103 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { questions, imgs } from '../Data'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { imgs } from '../Data';
 import Question from '../Components/Question';
 
-const shuffleArray = (array) => {
-  const newArray = array.sort(() => Math.random() - 0.5);
-  return newArray.slice(0, 5);
+const categoryMap = {
+  Ciencia: 17,
+  Deportes: 21,
+  Filosofía: 20,
+  Geografía: 22,
+  Historia: 23,
+  Literatura: 10,
+  Tecnología: 18,
 };
 
 const Categorias = () => {
   const { category } = useParams();
 
-    
-  const [imgCategory] = imgs.filter(
-    img => img === `/src/assets/${category}.png`
-  )
+  const [difficulty, setDifficulty] = useState('easy');
+  const [questions, setQuestions] = useState([]);
+  const [indexQuestion, setIndexQuestion] = useState(0);
+  const [activeQuiz, setActiveQuiz] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const [questionsFiltered, setQuestionsFiltered] = useState(
-      questions.filter(question => question.category === category)
-      );
+  const [imgCategory] = imgs.filter(img =>
+    img.toLowerCase().includes(category.toLowerCase())
+  );
 
-      const [indexQuestion, setIndexQuestion] = useState(0);
-      const [activeQuiz, setActiveQuiz] = useState()
-      
+  const fetchQuestions = async () => {
+    setLoading(true);
+    const categoryId = categoryMap[category];
+    const url = `https://opentdb.com/api.php?amount=5&category=${categoryId}&difficulty=${difficulty}&type=multiple`;
 
-      useEffect(() => {
-const newQuestions = shuffleArray(questionsFiltered);
-setQuestionsFiltered(newQuestions);
-      }, []);
-  
+    const res = await fetch(url);
+    const data = await res.json();
+    setQuestions(data.results);
+    setLoading(false);
+  };
+
+  const startQuiz = async () => {
+    await fetchQuestions();
+    setIndexQuestion(0);
+    setActiveQuiz(true);
+  };
+
   return (
-    <div className='container flex flex-col items-center justify-center gap-10'
-     style={{height: 'calc(100vh - 5rem)' }}
+    <div
+      className="container flex flex-col items-center justify-center gap-10"
+      style={{ height: 'calc(100vh - 5rem)' }}
     >
       {activeQuiz ? (
-    <Question
-    filteredQuestion={questionsFiltered[indexQuestion]}
-    setIndexQuestion={setIndexQuestion}
-    indexQuestion={indexQuestion}
-    questionsFiltered={questionsFiltered}
-    setActiveQuiz={setActiveQuiz}
-    />) : (   
-     <>
-     <div className='flex flex-col gap-5'>
-<h1 className='text-3x1 text-teal-900 text-center font-bold'>
-  {category}
-</h1>
+        loading ? (
+          <p className="text-xl font-bold">Cargando preguntas...</p>
+        ) : (
+          <Question
+            filteredQuestion={questions[indexQuestion]}
+            questionsFiltered={questions}
+            indexQuestion={indexQuestion}
+            setIndexQuestion={setIndexQuestion}
+            setActiveQuiz={setActiveQuiz}
+          />
+        )
+      ) : (
+        <>
+          <h1 className="text-3xl font-bold text-teal-900">{category}</h1>
 
-<div className='flex justify-center items-center'>
-<img
- src={imgCategory}
- alt={category}
-  className='w-72'
-   />
-</div>
-     </div>
+          <img src={imgCategory} alt={category} className="w-72" />
 
-     <button className='text-white bg-gray-900 py-2 rounded-lg font-bold px-5 transition-all hover:bg-yellow-500 hover:text-gray-900'
-     onClick={() => setActiveQuiz(true)}
-     >
-Iniciar Quiz
-     </button>
-      </> 
+          {/* selector dificultad */}
+          <div className="flex gap-3">
+            {['easy', 'medium', 'hard'].map(level => (
+              <button
+                key={level}
+                onClick={() => setDifficulty(level)}
+                className={`px-4 py-2 rounded-lg font-bold border
+                  ${
+                    difficulty === level
+                      ? 'bg-yellow-500 text-black'
+                      : 'bg-white'
+                  }`}
+              >
+                {level === 'easy'
+                  ? 'Fácil'
+                  : level === 'medium'
+                  ? 'Medio'
+                  : 'Difícil'}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={startQuiz}
+            className="bg-gray-900 text-white px-6 py-2 rounded-lg font-bold hover:bg-yellow-500 hover:text-black"
+          >
+            Iniciar Quiz
+          </button>
+        </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Categorias
+export default Categorias;
